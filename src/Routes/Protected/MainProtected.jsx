@@ -1,7 +1,12 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
 
 function MainProtected() {
+  let {isAuthenticated,user }= useSelector((store)=> store.auth);
+  if (!isAuthenticated) {
+    return <Navigate to="/"/>
+  }
   return (
    <Outlet />
   )

@@ -17,7 +17,7 @@ const useAuthHook = () => {
       const result = await dispatch(loginUser(formData));
 
       if (loginUser.fulfilled.match(result)) {
-        navigate("/");
+        navigate("/main");
       }
     } catch (error) {
       console.log(error);
