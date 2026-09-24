@@ -6,8 +6,11 @@ export const loginUserApi = async (credentials) => {
 };
 
 export const loggedIn = async () => {
-  const { data } = await api.get("/api/auth/loggedIn",{
-    headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
-  });
+  const { data } = await api.get("/api/auth/loggedIn");
+  return data;
+};
+
+export const refreshToken = async () => {
+  const { data } = await api.get("/api/auth/refreshToken");
   return data;
 };

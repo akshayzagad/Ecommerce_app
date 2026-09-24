@@ -1,15 +1,23 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
-import { Navigate, Outlet } from 'react-router-dom';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 function MainProtected() {
-  let {isAuthenticated,user }= useSelector((store)=> store.auth);
-  if (!isAuthenticated) {
-    return <Navigate to="/"/>
+  const { isAuthenticated, isHydrated } = useSelector(
+    (state) => state.auth
+  );
+
+  // Wait until authentication checking is finished
+  if (!isHydrated) {
+    return <div>Checking authentication...</div>;
   }
-  return (
-   <Outlet />
-  )
+
+  // Now we know authentication status
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
 }
 
-export default MainProtected
+export default MainProtected;
